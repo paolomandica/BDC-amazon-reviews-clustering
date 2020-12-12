@@ -13,11 +13,15 @@ def main(argv):
     parser.add_argument(
         "-l", "--labels", required=True, metavar='labels',
         help="Path of the .txt file containing the labels.")
+    parser.add_argument(
+        "--sc", action='store_true',
+        help="Use a single cpu core.")
 
     # python.exe .\main.py -c "corpus.txt" -l "labels.txt"
     args = vars(parser.parse_args())
     corpus_path = args['corpus']
     labels_path = args['labels']
+    singlecore = args['sc']
 
     print("Loading data...")
     corpus = load_corpus(corpus_path)
@@ -27,7 +31,14 @@ def main(argv):
     # Preprocessing
     print("Pre-processing corpus...")
     print("This could take a while!")
-    processed_corpus = process_corpus(corpus)
+    start = time.time()
+    if singlecore:
+        processed_corpus = process_corpus(corpus)
+    else:
+        print("Using {} cores".format(cpu_count()))
+        processed_corpus = multiprocess_corpus(corpus)
+    end = time.time()
+    print("Elapsed time: {} sec".format(int(end-start)))
 
     # Vectorization and SVD
     print("Computing Count Vectorization...")

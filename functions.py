@@ -16,6 +16,8 @@ from sklearn.pipeline import make_pipeline
 from collections import defaultdict, Counter, OrderedDict
 from scipy.sparse import csc_matrix, diags
 from wordcloud import WordCloud, ImageColorGenerator
+from multiprocessing import Pool, cpu_count
+from functools import partial
 
 
 def load_corpus(filepath):
@@ -34,7 +36,7 @@ def load_labels(filepath):
     return labels
 
 
-def process_string(s, stemmer, lemmatizer):
+def process_string(s, stemmer, lemmatizer=None):
     proc_s = str(s).lower()
     proc_s = re.sub('[^a-z0-9 ]+', ' ', proc_s)
     tokens = word_tokenize(proc_s)
@@ -55,6 +57,17 @@ def process_corpus(corpus):
         proc_s = process_string(s, stemmer, lemmatizer=None)
         processed_corpus.append(proc_s)
     return processed_corpus
+
+
+def multiprocess_corpus(corpus):
+    n_proc = cpu_count()
+    stemmer = SnowballStemmer("english")
+
+    with Pool(processes=n_proc) as pool:
+        fun = partial(process_string, stemmer=stemmer)
+        res = pool.map(fun, corpus)
+
+    return res
 
 
 def get_vectorized_matrix(processed_corpus):
