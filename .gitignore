@@ -170,3 +170,5 @@ data/*
 ### Files ###
 HW4.ipynb
 .vscode/launch.json
+hw2.ipynb
+.vscode/settings.json
