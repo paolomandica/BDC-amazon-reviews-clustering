@@ -17,7 +17,7 @@ def main(argv):
         "--sc", action='store_true',
         help="Use a single cpu core.")
 
-    # python.exe .\main.py -c "corpus.txt" -l "labels.txt"
+    # python.exe .\main.py -c "data/corpus.txt" -l "data/labels.txt"
     args = vars(parser.parse_args())
     corpus_path = args['corpus']
     labels_path = args['labels']
@@ -41,7 +41,7 @@ def main(argv):
     print("Elapsed time: {} sec".format(int(end-start)))
 
     # Vectorization and SVD
-    print("Computing Count Vectorization...")
+    print("Computing Vectorization...")
     X, vectorizer = get_vectorized_matrix(processed_corpus)
     print("Computing SVD...")
     tsvd, Y = TSVD(X, n_components=2, normalize=True)
@@ -56,7 +56,7 @@ def main(argv):
     print("\nLet's visualize the clusters using WordCloud!")
     visualize_clusters(vectorizer, tsvd, km)
 
-    print("Completed!")
+    print("Completed!\n")
 
 
 if __name__ == "__main__":

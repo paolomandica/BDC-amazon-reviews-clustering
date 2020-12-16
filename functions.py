@@ -71,7 +71,7 @@ def multiprocess_corpus(corpus):
 
 
 def get_vectorized_matrix(processed_corpus):
-    vectorizer = CountVectorizer(stop_words="english")
+    vectorizer = TfidfVectorizer(stop_words="english")
     X = vectorizer.fit_transform(processed_corpus)
     return X, vectorizer
 
@@ -96,13 +96,16 @@ def cluster(Y, true_k):
     km.fit(Y)
 
     preds = km.predict(Y)
-    preds = np.logical_not(preds).astype(int)
 
     return km, preds
 
 
 def print_statistics(km, preds, labels, Y):
     acc = metrics.accuracy_score(labels, preds)
+    if acc < 0.5:
+        preds = np.logical_not(preds).astype(int)
+        acc = metrics.accuracy_score(labels, preds)
+
     print("Clustering accuracy with k=2: %0.3f" % acc)
     print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
     print("Completeness: %0.3f" %
