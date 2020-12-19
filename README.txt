@@ -15,7 +15,7 @@ You should be able to run all the other cells of the notebook without problems.
 ######### HOW TO RUN THE PYTHON FILE FROM COMMAND LINE #########
 
 Included in the folder there is the file "main.py" which is a python script which can be run from command line using the following schema:
-python .\main.py -c "corpus.txt" -l "labels.txt"
+python .\main.py -c "data/corpus.txt" -l "data/labels.txt"
 
 The script also include the HELP argument, which can be triggered by the following command:
 python .\main.py -h

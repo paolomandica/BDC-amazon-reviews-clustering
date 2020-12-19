@@ -121,19 +121,19 @@ def visualize_clusters(vectorizer, tsvd, km):
     terms = vectorizer.get_feature_names()
 
     original_centroids = tsvd.inverse_transform(km.cluster_centers_)
-    for i in range(original_centroids.shape[0]):
-        original_centroids[i] = np.array([x for x in original_centroids[i]])
     svd_centroids = original_centroids.argsort()[:, ::-1]
 
-    centroids_dict = {}
-    for i, centroid in enumerate(svd_centroids):
-        l = [terms[term_id] for term_id in centroid]
-        centroids_dict[i] = l
+    for i in range(km.n_clusters):
+        print("Cluster %d:" % i, end='')
+        for ind in svd_centroids[i, :10]:
+            print(' %s' % terms[ind], end='')
+        print()
 
-    for i, centroid in centroids_dict.items():
-        text = " ".join(centroid)
-        wc = WordCloud(background_color='white', width=600,
-                       height=400).generate(text)
+    for i in range(km.n_clusters):
+        frequencies = original_centroids[i]
+        term_freq_dict = {term: frequencies[j] for j, term in enumerate(terms)}
+        wc = WordCloud(background_color='white',
+                       width=600, height=400).generate_from_frequencies(term_freq_dict)
         plt.imshow(wc, interpolation='bilinear')
         plt.axis("off")
         plt.tight_layout(pad=0)
