@@ -44,7 +44,7 @@ def main(argv):
     print("Computing Vectorization...")
     X, vectorizer = get_vectorized_matrix(processed_corpus)
     print("Computing SVD...")
-    tsvd, Y = TSVD(X, n_components=2, normalize=True)
+    tsvd, Y = TSVD(X, n_components=7, normalize=True)
 
     # Clustering
     print("\nStart clustering...")
