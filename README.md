@@ -1,8 +1,8 @@
 # Amazon Reviews Clustering
 
-The present project has been developed by Paolo Mandica (me) for the second homeword of the Big Data Computing course.
+The present project has been developed by Paolo Mandica (me) for the second homework of the Big Data Computing course of the Master's Degree in Data Science.
 
-It consists in processing a corpus of amazon reviews, vectorizing it, applying dimensionality reduction usind Singular Value Decomposition and, finally, clustering the reviews into 2 clusters.
+It consists in processing a corpus of amazon reviews, vectorizing it, applying dimensionality reduction using Singular Value Decomposition and, finally, clustering the reviews into 2 clusters.
 
 The accuracy reached is 0.85.  
 For more detail check out the [report](BDC_HW2_report.pdf).
