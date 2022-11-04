@@ -1,6 +1,6 @@
 # Amazon Reviews Clustering
 
-The present project has been developed by Paolo Mandica (me) for the second homework of the Big Data Computing course of the Master's Degree in Data Science.
+The present project has been developed for the 2nd homework of the Big Data Computing course of the Master's Degree in Data Science.
 
 It consists in processing a corpus of amazon reviews, vectorizing it, applying dimensionality reduction using Singular Value Decomposition and, finally, clustering the reviews into 2 clusters.
 
